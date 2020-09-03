@@ -31,7 +31,7 @@ class ControlAction {
         this.currentNumberPoints = currentNumberPoints;
     }
 
-    float getCurrentNumberTests() {
+    int getCurrentNumberTests() {
         return currentNumberTests;
     }
 
@@ -47,7 +47,7 @@ class ControlAction {
         this.requiredNumberPoints = requiredNumberPoints;
     }
 
-    float getRequiredNumberTests() {
+    int getRequiredNumberTests() {
         return requiredNumberTests;
     }
 

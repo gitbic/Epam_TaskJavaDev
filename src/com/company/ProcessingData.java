@@ -8,7 +8,7 @@ class ProcessingData {
     private ControlAction controlAction;
     private List<ControlAction> controlActionList = new ArrayList<>();
     private Set<String> examSet = createExamSet();
-    private Map<String, Float> examineMap;
+    private Map<String, Float> examMap;
 
     void createCollectionControlAction(String allData) {
         allData = allData.replaceAll("\\s", "");
@@ -22,34 +22,53 @@ class ProcessingData {
             List<String> testList = getPartOfEvent(event, "Test");
             List<String> requiredList = getPartOfEvent(event, "Required");
 
-            // collect exams
+            // collect exam results
             for (String exam : examList) {
-                examineMap = new TreeMap<>();
+                examMap = new TreeMap<>();
+
                 for (String key : examSet) {
                     float value = parseValue(exam, key);
-                    examineMap.put(key, value);
+                    examMap.put(key, value);
                 }
-                controlAction.addExamToList(examineMap);
+                controlAction.addExamToList(examMap);
             }
 
             // collect test results and count the passed tests
-            int numberTests = 0;
             for (String test : testList) {
-                if (test.matches(".*yes.*")) {
-                    controlAction.addTestToList(true);
-                    numberTests++;
-                } else {
-                    controlAction.addTestToList(false);
-                }
+                controlAction.addTestToList(test.matches(".*yes.*"));
             }
-            controlAction.setCurrentNumberTests(numberTests);
 
             // read requirements
             controlAction.setRequiredNumberPoints(parseValue(requiredList.get(0), "examPoints"));
-            controlAction.setRequiredNumberTests((int)parseValue(requiredList.get(0), "passedTests"));
+            controlAction.setRequiredNumberTests((int) parseValue(requiredList.get(0), "passedTests"));
+
+            // count passed tests and score points
+            controlAction.setCurrentNumberPoints(countNumberOfPoints());
+            controlAction.setCurrentNumberTests(countPassedTests());
 
             controlActionList.add(controlAction);
+
+//            System.out.println(controlAction.getCurrentNumberPoints());
+//            System.out.println(controlAction.getCurrentNumberTests());
         }
+    }
+
+    private float countNumberOfPoints() {
+        int numberPoints = 0;
+        for (Map<String, Float> exam : controlAction.getExamineList()) {
+            numberPoints += exam.get("currentValue");
+        }
+        return numberPoints;
+    }
+
+    private int countPassedTests() {
+        int numberTests = 0;
+        for (Boolean testPass : controlAction.getTestList()) {
+            if (testPass) {
+                numberTests++;
+            }
+        }
+        return numberTests;
     }
 
     private List<String> getPartOfEvent(String str, String substr) {
@@ -83,5 +102,4 @@ class ProcessingData {
         set.add("currentValue");
         return set;
     }
-
 }
