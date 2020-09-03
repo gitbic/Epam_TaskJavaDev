@@ -10,10 +10,10 @@ class ControlAction {
     private List<Boolean> testList = new ArrayList<>();
 
     private float currentNumberPoints;
-    private float currentNumberTests;
+    private int currentNumberTests;
 
     private float requiredNumberPoints;
-    private float requiredNumberTests;
+    private int requiredNumberTests;
 
     List<Map<String, Float>> getExamineList() {
         return examineList;
@@ -35,7 +35,7 @@ class ControlAction {
         return currentNumberTests;
     }
 
-    void setCurrentNumberTests(float currentNumberTests) {
+    void setCurrentNumberTests(int currentNumberTests) {
         this.currentNumberTests = currentNumberTests;
     }
 
@@ -51,7 +51,7 @@ class ControlAction {
         return requiredNumberTests;
     }
 
-    void setRequiredNumberTests(float requiredNumberTests) {
+    void setRequiredNumberTests(int requiredNumberTests) {
         this.requiredNumberTests = requiredNumberTests;
     }
 

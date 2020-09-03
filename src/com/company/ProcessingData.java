@@ -13,13 +13,16 @@ class ProcessingData {
     void createCollectionControlAction(String allData) {
         allData = allData.replaceAll("\\s", "");
 
+        // for each control action
         for (String event : allData.split("[^^]Event")) {
             controlAction = new ControlAction();
 
+            // divide event in to parts
             List<String> examList = getPartOfEvent(event, "Exam");
             List<String> testList = getPartOfEvent(event, "Test");
             List<String> requiredList = getPartOfEvent(event, "Required");
 
+            // collect exams
             for (String exam : examList) {
                 examineMap = new TreeMap<>();
                 for (String key : examSet) {
@@ -29,12 +32,21 @@ class ProcessingData {
                 controlAction.addExamToList(examineMap);
             }
 
+            // collect test results and count the passed tests
+            int numberTests = 0;
             for (String test : testList) {
-                controlAction.addTestToList(test.matches(".*yes.*"));
+                if (test.matches(".*yes.*")) {
+                    controlAction.addTestToList(true);
+                    numberTests++;
+                } else {
+                    controlAction.addTestToList(false);
+                }
             }
+            controlAction.setCurrentNumberTests(numberTests);
 
+            // read requirements
             controlAction.setRequiredNumberPoints(parseValue(requiredList.get(0), "examPoints"));
-            controlAction.setRequiredNumberTests(parseValue(requiredList.get(0), "passedTests"));
+            controlAction.setRequiredNumberTests((int)parseValue(requiredList.get(0), "passedTests"));
 
             controlActionList.add(controlAction);
         }
@@ -50,7 +62,7 @@ class ProcessingData {
         return list;
     }
 
-    private Float parseValue(String str, String substr) {
+    private float parseValue(String str, String substr) {
         String result = "";
         Pattern p = Pattern.compile(substr + "\\s?=\\s?(\\d+\\.?\\d?)");
         Matcher m = p.matcher(str);
