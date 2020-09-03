@@ -6,7 +6,6 @@ import java.util.Map;
 
 class ControlAction {
 
-    private String nameControlAction;
     private List<Map<String, Float>> examineList = new ArrayList<>();
     private List<Boolean> testList = new ArrayList<>();
 
@@ -15,14 +14,6 @@ class ControlAction {
 
     private float requiredNumberPoints;
     private float requiredNumberTests;
-
-    String getNameControlAction() {
-        return nameControlAction;
-    }
-
-    void setNameControlAction(String nameControlAction) {
-        this.nameControlAction = nameControlAction;
-    }
 
     List<Map<String, Float>> getExamineList() {
         return examineList;
@@ -64,7 +55,7 @@ class ControlAction {
         this.requiredNumberTests = requiredNumberTests;
     }
 
-    void addExamineToList(Map<String, Float> map) {
+    void addExamToList(Map<String, Float> map) {
         examineList.add(map);
     }
 

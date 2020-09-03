@@ -7,8 +7,8 @@ public class Main {
         String fileName = args[0];
         String allData = new FileIO().readFile(fileName);
 
-        ProcessData processData = new ProcessData();
-        processData.processingInputData(allData);
+        ProcessingData processingData = new ProcessingData();
+        processingData.createCollectionControlAction(allData);
 
 
 

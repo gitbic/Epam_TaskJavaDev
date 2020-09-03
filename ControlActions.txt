@@ -1,0 +1,48 @@
+Event{
+	Exam{
+		minValue = 1;
+		maxValue = 10;
+		stepValue = 1;
+		currentValue = 4;
+		}
+	Exam{
+		minValue = 1;
+		maxValue = 15;
+		stepValue = 1;
+		currentValue = 5;
+		}
+	Required{
+		examPoints = 8;
+		passedTests = 0;
+		}
+	}
+Event{
+	Exam{
+		minValue = 0;
+		maxValue = 10;
+		stepValue = 0.5;
+		currentValue = 5;
+		}
+	Test{
+		passedTest = yes;
+		}
+	Required{
+		examPoints = 7.5;
+		passedTests = 1;
+		}
+	}
+Event{
+	Test{
+		passedTest = yes;
+		}
+	Test{
+		passedTest = no;
+		}
+	Test{
+		passedTest = yes;
+		}
+	Required{
+		examPoints = 0;
+		passedTests = 2;
+		}
+	}
