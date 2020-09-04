@@ -10,17 +10,26 @@ class ProcessingData {
     private Set<String> examSet = createExamSet();
     private Map<String, Float> examMap;
 
+    void reorderCollection() {
+        Deque<ControlAction> controlActionDeque = new ArrayDeque<>();
+        for (ControlAction controlAction : controlActionList) {
+            if (controlAction.isEventPassed()) {
+                controlActionDeque.offerFirst(controlAction);
+            } else {
+                controlActionDeque.offerLast(controlAction);
+            }
+        }
+        controlActionList = new ArrayList<>(controlActionDeque);
+    }
+
     void writeCollectionToConsole() {
         System.out.println("==================================================");
 
         for (ControlAction action : controlActionList) {
-        System.out.println("Контрольное мероприятие № " + (controlActionList.indexOf(action) + 1));
+            System.out.println("Контрольное мероприятие № " + (controlActionList.indexOf(action) + 1));
             System.out.println(action.toString());
             System.out.println();
         }
-
-//        controlActionList.forEach(System.out::println);
-        System.out.println("Все контрольные мероприятия выведены на консоль.");
         System.out.println("==================================================");
     }
 
@@ -89,7 +98,7 @@ class ProcessingData {
 
     private List<String> getPartOfEvent(String str, String substr) {
         List<String> list = new ArrayList<>();
-        Pattern p = Pattern.compile(substr + "\\{(.*?)\\}");
+        Pattern p = Pattern.compile(substr + "\\{(.*?)}");
         Matcher m = p.matcher(str);
         while (m.find()) {
             list.add(m.group(1));

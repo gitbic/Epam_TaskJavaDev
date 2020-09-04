@@ -10,12 +10,8 @@ public class Main {
         ProcessingData processingData = new ProcessingData();
         processingData.createCollectionControlAction(allData);
         processingData.writeCollectionToConsole();
-
-
-
-
-
-
+        processingData.reorderCollection();
+        processingData.writeCollectionToConsole();
     }
 }
 

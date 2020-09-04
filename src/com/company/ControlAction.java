@@ -95,21 +95,24 @@ class ControlAction {
                     "Кандидат сдал зачет: " + (testList.get(i) ? "да" : "нет") + "\n");
         }
 
-        sb.append("Требования для прохождения контрольного испытания: \n\t");
+        sb.append("Требования для прохождения контрольного испытания:\n");
         if (examList.size() > 0) {
-            sb.append("Необходимо набрать баллов в совокупности за все экзамены: " + requiredNumberPoints + "\n\t");
+            sb.append("\tНеобходимо набрать баллов в совокупности за все экзамены: " + requiredNumberPoints + "\n");
         }
         if (testList.size() > 0) {
-            sb.append("Необходимо сдать всего зачетов: " + requiredNumberTests + "\n");
+            sb.append("\tНеобходимо сдать всего зачетов: " + requiredNumberTests + "\n");
         }
 
-        sb.append("Текущие результаты кандидата: \n\t");
+        sb.append("Текущие результаты кандидата:\n");
         if (examList.size() > 0) {
-            sb.append("Количество баллов набрано: " + currentNumberPoints + "\n\t");
+            sb.append("\tКоличество баллов набрано: " + currentNumberPoints + "\n");
         }
         if (testList.size() > 0) {
-            sb.append("Количество зачетов сдано: " + requiredNumberTests + "\n");
+            sb.append("\tКоличество зачетов сдано: " + requiredNumberTests + "\n");
         }
+
+        sb.append("Вывод: контрольное мероприятие ")
+                .append(eventPassed ? "ПРОЙДЕНО." : "НЕ ПРОЙДЕНО.");
 
         return sb.toString();
     }
