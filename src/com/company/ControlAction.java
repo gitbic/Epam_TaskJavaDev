@@ -21,7 +21,7 @@ class ControlAction {
         return eventPassed;
     }
 
-    public void setEventPassed(boolean eventPassed) {
+    void setEventPassed(boolean eventPassed) {
         this.eventPassed = eventPassed;
     }
 
