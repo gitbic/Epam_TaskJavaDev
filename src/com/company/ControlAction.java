@@ -95,8 +95,21 @@ class ControlAction {
                     "Кандидат сдал зачет: " + (testList.get(i) ? "да" : "нет") + "\n");
         }
 
-        // required
-        // current
+        sb.append("Требования для прохождения контрольного испытания: \n\t");
+        if (examList.size() > 0) {
+            sb.append("Необходимо набрать баллов в совокупности за все экзамены: " + requiredNumberPoints + "\n\t");
+        }
+        if (testList.size() > 0) {
+            sb.append("Необходимо сдать всего зачетов: " + requiredNumberTests + "\n");
+        }
+
+        sb.append("Текущие результаты кандидата: \n\t");
+        if (examList.size() > 0) {
+            sb.append("Количество баллов набрано: " + currentNumberPoints + "\n\t");
+        }
+        if (testList.size() > 0) {
+            sb.append("Количество зачетов сдано: " + requiredNumberTests + "\n");
+        }
 
         return sb.toString();
     }
