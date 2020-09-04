@@ -26,7 +26,7 @@ class ProcessingData {
         System.out.println("==================================================");
 
         for (ControlAction action : controlActionList) {
-            System.out.println("РљРѕРЅС‚СЂРѕР»СЊРЅРѕРµ РјРµСЂРѕРїСЂРёСЏС‚РёРµ в„– " + (controlActionList.indexOf(action) + 1));
+            System.out.println("Контрольное мероприятие № " + (controlActionList.indexOf(action) + 1));
             System.out.println(action.toString());
             System.out.println();
         }
