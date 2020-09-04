@@ -10,6 +10,20 @@ class ProcessingData {
     private Set<String> examSet = createExamSet();
     private Map<String, Float> examMap;
 
+    void writeCollectionToConsole() {
+        System.out.println("==================================================");
+
+        for (ControlAction action : controlActionList) {
+        System.out.println("Контрольное мероприятие № " + (controlActionList.indexOf(action) + 1));
+            System.out.println(action.toString());
+            System.out.println();
+        }
+
+//        controlActionList.forEach(System.out::println);
+        System.out.println("Все контрольные мероприятия выведены на консоль.");
+        System.out.println("==================================================");
+    }
+
     void createCollectionControlAction(String allData) {
         allData = allData.replaceAll("\\s", "");
 
@@ -57,7 +71,7 @@ class ProcessingData {
 
     private float countNumberOfPoints() {
         int numberPoints = 0;
-        for (Map<String, Float> exam : controlAction.getExamineList()) {
+        for (Map<String, Float> exam : controlAction.getExamList()) {
             numberPoints += exam.get("currentValue");
         }
         return numberPoints;

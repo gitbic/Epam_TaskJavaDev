@@ -6,7 +6,7 @@ import java.util.Map;
 
 class ControlAction {
 
-    private List<Map<String, Float>> examineList = new ArrayList<>();
+    private List<Map<String, Float>> examList = new ArrayList<>();
     private List<Boolean> testList = new ArrayList<>();
 
     private float currentNumberPoints;
@@ -25,8 +25,8 @@ class ControlAction {
         this.eventPassed = eventPassed;
     }
 
-    List<Map<String, Float>> getExamineList() {
-        return examineList;
+    List<Map<String, Float>> getExamList() {
+        return examList;
     }
 
     List<Boolean> getTestList() {
@@ -66,7 +66,7 @@ class ControlAction {
     }
 
     void addExamToList(Map<String, Float> map) {
-        examineList.add(map);
+        examList.add(map);
     }
 
     void addTestToList(boolean bool) {
@@ -76,6 +76,28 @@ class ControlAction {
 
     @Override
     public String toString() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+        sb.append("В состав контрольного мероприятия входят: \n\t" +
+                "Количество тестов: " + testList.size() + "\n\t" +
+                "Количество экзаменов: " + examList.size() + "\n");
+
+
+        for (Map<String, Float> examMap : examList) {
+            sb.append("Экзамен № " + (examList.indexOf(examMap) + 1) + "\n\t" +
+                    "Минимальный балл: " + examMap.get("minValue") + "\n\t" +
+                    "Максимальный балл: " + examMap.get("maxValue") + "\n\t" +
+                    "Шаг балла: " + examMap.get("stepValue") + "\n\t" +
+                    "Кандидат набрал баллов: " + examMap.get("currentValue") + "\n");
+        }
+
+        for (int i = 0; i < testList.size(); i++) {
+            sb.append("Зачет № " + (i + 1) + "\n\t" +
+                    "Кандидат сдал зачет: " + (testList.get(i) ? "да" : "нет") + "\n");
+        }
+
+        // required
+        // current
+
+        return sb.toString();
     }
 }
