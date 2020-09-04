@@ -72,4 +72,10 @@ class ControlAction {
     void addTestToList(boolean bool) {
         testList.add(bool);
     }
+
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

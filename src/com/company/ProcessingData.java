@@ -104,4 +104,5 @@ class ProcessingData {
         set.add("currentValue");
         return set;
     }
+
 }
