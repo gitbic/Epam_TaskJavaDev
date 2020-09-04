@@ -78,7 +78,7 @@ class ControlAction {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("В состав контрольного мероприятия входят: \n" +
-                "\tКоличество тестов: " + testList.size() + "\n" +
+                "\tКоличество зачетов: " + testList.size() + "\n" +
                 "\tКоличество экзаменов: " + examList.size() + "\n");
 
 
