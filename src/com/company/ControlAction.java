@@ -15,6 +15,16 @@ class ControlAction {
     private float requiredNumberPoints;
     private int requiredNumberTests;
 
+    private boolean eventPassed;
+
+    public boolean isEventPassed() {
+        return eventPassed;
+    }
+
+    public void setEventPassed(boolean eventPassed) {
+        this.eventPassed = eventPassed;
+    }
+
     List<Map<String, Float>> getExamineList() {
         return examineList;
     }

@@ -46,10 +46,12 @@ class ProcessingData {
             controlAction.setCurrentNumberPoints(countNumberOfPoints());
             controlAction.setCurrentNumberTests(countPassedTests());
 
-            controlActionList.add(controlAction);
+            // check whether the control action has passed
+            boolean passedAllExam = controlAction.getCurrentNumberPoints() >= controlAction.getRequiredNumberPoints();
+            boolean passedAllTests = controlAction.getCurrentNumberTests() >= controlAction.getRequiredNumberTests();
+            controlAction.setEventPassed(passedAllExam && passedAllTests);
 
-//            System.out.println(controlAction.getCurrentNumberPoints());
-//            System.out.println(controlAction.getCurrentNumberTests());
+            controlActionList.add(controlAction);
         }
     }
 
