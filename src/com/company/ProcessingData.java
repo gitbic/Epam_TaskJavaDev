@@ -36,7 +36,7 @@ class ProcessingData {
     void createCollectionControlAction(String allData) {
         allData = allData.replaceAll("\\s", "");
 
-        // for each control action
+        // iterate for each control action
         for (String event : allData.split("[^^]Event")) {
             controlAction = new ControlAction();
 
