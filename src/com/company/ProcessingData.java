@@ -47,7 +47,7 @@ class ProcessingData {
 
             // collect exam results
             for (String exam : examList) {
-                examMap = new TreeMap<>();
+                examMap = new HashMap<>();
 
                 for (String key : examSet) {
                     float value = parseValue(exam, key);
@@ -120,7 +120,7 @@ class ProcessingData {
     }
 
     private Set<String> createExamSet() {
-        Set<String> set = new TreeSet<>();
+        Set<String> set = new HashSet<>();
         set.add("minValue");
         set.add("maxValue");
         set.add("stepValue");
