@@ -25,13 +25,6 @@ class ControlAction {
         this.eventPassed = eventPassed;
     }
 
-    List<Map<String, Float>> getExamList() {
-        return examList;
-    }
-
-    List<Boolean> getTestList() {
-        return testList;
-    }
 
     float getCurrentNumberPoints() {
         return currentNumberPoints;
@@ -71,6 +64,14 @@ class ControlAction {
 
     void addTestToList(boolean bool) {
         testList.add(bool);
+    }
+
+    List<Map<String, Float>> getExamList() {
+        return examList;
+    }
+
+    List<Boolean> getTestList() {
+        return testList;
     }
 
 
