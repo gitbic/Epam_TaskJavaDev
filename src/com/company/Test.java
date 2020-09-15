@@ -1,11 +1,29 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.List;
+class Test extends Examination {
 
-class Test extends Examination{
-    private List<Boolean> testList = new ArrayList<>();
+    private int testNumber;
+    private boolean testPassed;
 
+    int getTestNumber() {
+        return testNumber;
+    }
 
+    void setTestNumber(int testNumber) {
+        this.testNumber = testNumber;
+    }
 
+    boolean isTestPassed() {
+        return testPassed;
+    }
+
+    void setTestPassed(boolean testPassed) {
+        this.testPassed = testPassed;
+    }
+
+    @Override
+    public String toString() {
+        return "Зачет №" + testNumber + "\n" +
+                "\tКандидат сдал зачет: " + (testPassed ? "да" : "нет") + "\n";
+    }
 }

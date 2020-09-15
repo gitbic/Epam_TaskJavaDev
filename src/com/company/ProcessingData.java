@@ -10,6 +10,9 @@ class ProcessingData {
     private Set<String> examSet = createExamSet();
     private Map<String, Float> examMap;
 
+//    private Examination<Boolean> test = new Test();
+//    private Examination<Map<String, Float>> exam = new Exam();
+
     void reorderCollection() {
         Deque<ControlAction> controlActionDeque = new ArrayDeque<>();
         for (ControlAction controlAction : controlActionList) {
@@ -26,7 +29,7 @@ class ProcessingData {
         System.out.println("==================================================");
 
         for (ControlAction action : controlActionList) {
-            System.out.println("Контрольное мероприятие № " + (controlActionList.indexOf(action) + 1));
+            System.out.println("РљРѕРЅС‚СЂРѕР»СЊРЅРѕРµ РјРµСЂРѕРїСЂРёСЏС‚РёРµ в„– " + (controlActionList.indexOf(action) + 1));
             System.out.println(action.toString());
             System.out.println();
         }
@@ -37,64 +40,60 @@ class ProcessingData {
         allData = allData.replaceAll("\\s", "");
 
         // iterate for each control action
-        for (String event : allData.split("[^^]Event")) {
-            controlAction = new ControlAction();
+        for (String controlAction : allData.split("[^^]ControlAction")) {
+            this.controlAction = new ControlAction();
 
-            // divide event in to parts
-            List<String> examList = getPartOfEvent(event, "Exam");
-            List<String> testList = getPartOfEvent(event, "Test");
-            List<String> requiredList = getPartOfEvent(event, "Required");
+            DataHandler examHandler = new ExamHandler(controlAction);
+            examHandler.createEventList();
 
-            // collect exam results
-            for (String exam : examList) {
-                examMap = new HashMap<>();
 
-                for (String key : examSet) {
-                    float value = parseValue(exam, key);
-                    examMap.put(key, value);
-                }
-                controlAction.addExamToList(examMap);
-            }
 
-            // collect test results and count the passed tests
-            for (String test : testList) {
-                controlAction.addTestToList(test.matches(".*yes.*"));
-            }
+            DataHandler testHandler = new TestHandler(controlAction);
+            testHandler.createEventList();
+            testHandler.printEvents();
+
+
+
+
+
+
+            List<String> requiredStringList = getPartOfEvent(controlAction, "Required");
 
             // read requirements
-            controlAction.setRequiredNumberPoints(parseValue(requiredList.get(0), "examPoints"));
-            controlAction.setRequiredNumberTests((int) parseValue(requiredList.get(0), "passedTests"));
+            this.controlAction.setRequiredNumberPoints(parseValue(requiredStringList.get(0), "examPoints"));
+            this.controlAction.setRequiredNumberTests((int) parseValue(requiredStringList.get(0), "passedTests"));
 
-            // count passed tests and score points
-            controlAction.setCurrentNumberPoints(countNumberOfPoints());
-            controlAction.setCurrentNumberTests(countPassedTests());
+//            // count passed tests and score points
+//            this.controlAction.setCurrentNumberPoints(countNumberOfPoints());
+//            this.controlAction.setCurrentNumberTests(countPassedTests());
 
             // check whether the control action has passed
-            boolean passedAllExam = controlAction.getCurrentNumberPoints() >= controlAction.getRequiredNumberPoints();
-            boolean passedAllTests = controlAction.getCurrentNumberTests() >= controlAction.getRequiredNumberTests();
-            controlAction.setEventPassed(passedAllExam && passedAllTests);
+            boolean passedAllExam = this.controlAction.getCurrentNumberPoints() >= this.controlAction.getRequiredNumberPoints();
+            boolean passedAllTests = this.controlAction.getCurrentNumberTests() >= this.controlAction.getRequiredNumberTests();
+            this.controlAction.setEventPassed(passedAllExam && passedAllTests);
 
-            controlActionList.add(controlAction);
+            controlActionList.add(this.controlAction);
         }
     }
 
-    private float countNumberOfPoints() {
-        int numberPoints = 0;
-        for (Map<String, Float> exam : controlAction.getExamList()) {
-            numberPoints += exam.get("currentValue");
-        }
-        return numberPoints;
-    }
-
-    private int countPassedTests() {
-        int numberTests = 0;
-        for (Boolean testPass : controlAction.getTestList()) {
-            if (testPass) {
-                numberTests++;
-            }
-        }
-        return numberTests;
-    }
+//    private float countNumberOfPoints() {
+//        int numberPoints = 0;
+////        for (Map<String, Float> exam : controlAction.getExamList()) {
+//        for (Map<String, Float> exam : controlAction.getExamList()) {
+//            numberPoints += exam.get("currentValue");
+//        }
+//        return numberPoints;
+//    }
+//
+//    private int countPassedTests() {
+//        int numberTests = 0;
+//        for (Boolean testPass : controlAction.getTestList()) {
+//            if (testPass) {
+//                numberTests++;
+//            }
+//        }
+//        return numberTests;
+//    }
 
     private List<String> getPartOfEvent(String str, String substr) {
         List<String> list = new ArrayList<>();

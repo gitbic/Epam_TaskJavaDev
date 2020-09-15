@@ -6,8 +6,9 @@ import java.util.Map;
 
 class ControlAction {
 
-    private List<Map<String, Float>> examList = new ArrayList<>();
-    private List<Boolean> testList = new ArrayList<>();
+//    private List<Map<String, Float>> examList = new ArrayList<>();
+//    private List<Boolean> testList = new ArrayList<>();
+
 
     private float currentNumberPoints;
     private int currentNumberTests;
@@ -24,7 +25,6 @@ class ControlAction {
     void setEventPassed(boolean eventPassed) {
         this.eventPassed = eventPassed;
     }
-
 
     float getCurrentNumberPoints() {
         return currentNumberPoints;
@@ -58,63 +58,63 @@ class ControlAction {
         this.requiredNumberTests = requiredNumberTests;
     }
 
-    void addExamToList(Map<String, Float> map) {
-        examList.add(map);
-    }
-
-    void addTestToList(boolean bool) {
-        testList.add(bool);
-    }
-
-    List<Map<String, Float>> getExamList() {
-        return examList;
-    }
-
-    List<Boolean> getTestList() {
-        return testList;
-    }
-
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("В состав контрольного мероприятия входят: \n" +
-                "\tКоличество зачетов: " + testList.size() + "\n" +
-                "\tКоличество экзаменов: " + examList.size() + "\n");
+//    void addExamToList(Map<String, Float> map) {
+//        examList.add(map);
+//    }
+//
+//    void addTestToList(boolean bool) {
+//        testList.add(bool);
+//    }
+//
+//    List<Map<String, Float>> getExamList() {
+//        return examList;
+//    }
+//
+//    List<Boolean> getTestList() {
+//        return testList;
+//    }
 
 
-        for (Map<String, Float> examMap : examList) {
-            sb.append("Экзамен № " + (examList.indexOf(examMap) + 1) + "\n" +
-                    "\tМинимальный балл: " + examMap.get("minValue") + "\n" +
-                    "\tМаксимальный балл: " + examMap.get("maxValue") + "\n" +
-                    "\tШаг балла: " + examMap.get("stepValue") + "\n" +
-                    "\tКандидат набрал баллов: " + examMap.get("currentValue") + "\n");
-        }
-
-        for (int i = 0; i < testList.size(); i++) {
-            sb.append("Зачет № " + (i + 1) + "\n" +
-                    "\tКандидат сдал зачет: " + (testList.get(i) ? "да" : "нет") + "\n");
-        }
-
-        sb.append("Требования для прохождения контрольного испытания:\n");
-        if (examList.size() > 0) {
-            sb.append("\tНеобходимо набрать баллов в совокупности за все экзамены: " + requiredNumberPoints + "\n");
-        }
-        if (testList.size() > 0) {
-            sb.append("\tНеобходимо сдать всего зачетов: " + requiredNumberTests + "\n");
-        }
-
-        sb.append("Текущие результаты кандидата:\n");
-        if (examList.size() > 0) {
-            sb.append("\tКоличество баллов набрано: " + currentNumberPoints + "\n");
-        }
-        if (testList.size() > 0) {
-            sb.append("\tКоличество зачетов сдано: " + requiredNumberTests + "\n");
-        }
-
-        sb.append("Вывод: контрольное мероприятие ")
-                .append(eventPassed ? "ПРОЙДЕНО." : "НЕ ПРОЙДЕНО.");
-
-        return sb.toString();
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("Р’ СЃРѕСЃС‚Р°РІ РєРѕРЅС‚СЂРѕР»СЊРЅРѕРіРѕ РјРµСЂРѕРїСЂРёСЏС‚РёСЏ РІС…РѕРґСЏС‚: \n" +
+//                "\tРљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°С‡РµС‚РѕРІ: " + testList.size() + "\n" +
+//                "\tРљРѕР»РёС‡РµСЃС‚РІРѕ СЌРєР·Р°РјРµРЅРѕРІ: " + examList.size() + "\n");
+//
+//
+//        for (Map<String, Float> examMap : examList) {
+//            sb.append("Р­РєР·Р°РјРµРЅ в„– " + (examList.indexOf(examMap) + 1) + "\n" +
+//                    "\tРњРёРЅРёРјР°Р»СЊРЅС‹Р№ Р±Р°Р»Р»: " + examMap.get("minValue") + "\n" +
+//                    "\tРњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ Р±Р°Р»Р»: " + examMap.get("maxValue") + "\n" +
+//                    "\tРЁР°Рі Р±Р°Р»Р»Р°: " + examMap.get("stepValue") + "\n" +
+//                    "\tРљР°РЅРґРёРґР°С‚ РЅР°Р±СЂР°Р» Р±Р°Р»Р»РѕРІ: " + examMap.get("currentValue") + "\n");
+//        }
+//
+//        for (int i = 0; i < testList.size(); i++) {
+//            sb.append("Р—Р°С‡РµС‚ в„– " + (i + 1) + "\n" +
+//                    "\tРљР°РЅРґРёРґР°С‚ СЃРґР°Р» Р·Р°С‡РµС‚: " + (testList.get(i) ? "РґР°" : "РЅРµС‚") + "\n");
+//        }
+//
+//        sb.append("РўСЂРµР±РѕРІР°РЅРёСЏ РґР»СЏ РїСЂРѕС…РѕР¶РґРµРЅРёСЏ РєРѕРЅС‚СЂРѕР»СЊРЅРѕРіРѕ РёСЃРїС‹С‚Р°РЅРёСЏ:\n");
+//        if (examList.size() > 0) {
+//            sb.append("\tРќРµРѕР±С…РѕРґРёРјРѕ РЅР°Р±СЂР°С‚СЊ Р±Р°Р»Р»РѕРІ РІ СЃРѕРІРѕРєСѓРїРЅРѕСЃС‚Рё Р·Р° РІСЃРµ СЌРєР·Р°РјРµРЅС‹: " + requiredNumberPoints + "\n");
+//        }
+//        if (testList.size() > 0) {
+//            sb.append("\tРќРµРѕР±С…РѕРґРёРјРѕ СЃРґР°С‚СЊ РІСЃРµРіРѕ Р·Р°С‡РµС‚РѕРІ: " + requiredNumberTests + "\n");
+//        }
+//
+//        sb.append("РўРµРєСѓС‰РёРµ СЂРµР·СѓР»СЊС‚Р°С‚С‹ РєР°РЅРґРёРґР°С‚Р°:\n");
+//        if (examList.size() > 0) {
+//            sb.append("\tРљРѕР»РёС‡РµСЃС‚РІРѕ Р±Р°Р»Р»РѕРІ РЅР°Р±СЂР°РЅРѕ: " + currentNumberPoints + "\n");
+//        }
+//        if (testList.size() > 0) {
+//            sb.append("\tРљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°С‡РµС‚РѕРІ СЃРґР°РЅРѕ: " + requiredNumberTests + "\n");
+//        }
+//
+//        sb.append("Р’С‹РІРѕРґ: РєРѕРЅС‚СЂРѕР»СЊРЅРѕРµ РјРµСЂРѕРїСЂРёСЏС‚РёРµ ")
+//                .append(eventPassed ? "РџР РћР™Р”Р•РќРћ." : "РќР• РџР РћР™Р”Р•РќРћ.");
+//
+//        return sb.toString();
+//    }
 }
