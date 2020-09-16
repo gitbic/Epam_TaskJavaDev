@@ -1,4 +1,4 @@
-Event{
+ControlAction{
 	Exam{
 		minValue = 1;
 		maxValue = 10;
@@ -16,7 +16,7 @@ Event{
 		passedTests = 0;
 		}
 	}
-Event{
+ControlAction{
 	Exam{
 		minValue = 0;
 		maxValue = 10;
@@ -31,7 +31,7 @@ Event{
 		passedTests = 1;
 		}
 	}
-Event{
+ControlAction{
 	Test{
 		passedTest = yes;
 		}

@@ -7,11 +7,55 @@ import java.util.regex.Pattern;
 class ProcessingData {
     private ControlAction controlAction;
     private List<ControlAction> controlActionList = new ArrayList<>();
-    private Set<String> examSet = createExamSet();
-    private Map<String, Float> examMap;
+    private DataHandler<Exam> examHandler = new ExamHandler();
+    private DataHandler<Test> testHandler = new TestHandler();
+    private DataHandler<Requirements> requirementsHandler = new RequirementsHandler();
 
-//    private Examination<Boolean> test = new Test();
-//    private Examination<Map<String, Float>> exam = new Exam();
+    void createCollectionControlAction(String allData) {
+        allData = allData.replaceAll("\\s", "");
+
+        // iterate for each control action
+        for (String controlActionString : allData.split("[^^]ControlAction")) {
+            controlAction = new ControlAction();
+
+            // divide Control Action in to parts
+            List<String> examStringList = getPartOfControlAction(controlActionString, "Exam");
+            List<String> testStingList = getPartOfControlAction(controlActionString, "Test");
+            List<String> requiredStringList = getPartOfControlAction(controlActionString, "Required");
+
+            // collect exam results
+            for (int i = 0; i < examStringList.size(); i++) {
+                Exam exam = examHandler.getEventFromString(i + 1, examStringList.get(i));
+                controlAction.addExamToList(exam);
+                System.out.println(exam);
+            }
+
+            // collect test results
+            for (int i = 0; i < testStingList.size(); i++) {
+                Test test = testHandler.getEventFromString(i + 1, testStingList.get(i));
+                controlAction.addTestToList(test);
+                System.out.println(test);
+            }
+
+            // collect requirements
+            Requirements requirements = requirementsHandler.getEventFromString(0, requiredStringList.get(0));
+            controlAction.setRequirements(requirements);
+            System.out.println(requirements);
+
+
+
+            // count passed tests and score points
+//            controlAction.setCurrentNumberPoints(countNumberOfPoints());
+//            controlAction.setCurrentNumberTests(countPassedTests());
+
+            // check whether the control action has passed
+            boolean passedAllExam = controlAction.getCurrentNumberPoints() >= controlAction.getRequiredNumberPoints();
+            boolean passedAllTests = controlAction.getCurrentNumberTests() >= controlAction.getRequiredNumberTests();
+            controlAction.setEventPassed(passedAllExam && passedAllTests);
+
+            controlActionList.add(controlAction);
+        }
+    }
 
     void reorderCollection() {
         Deque<ControlAction> controlActionDeque = new ArrayDeque<>();
@@ -36,46 +80,6 @@ class ProcessingData {
         System.out.println("==================================================");
     }
 
-    void createCollectionControlAction(String allData) {
-        allData = allData.replaceAll("\\s", "");
-
-        // iterate for each control action
-        for (String controlAction : allData.split("[^^]ControlAction")) {
-            this.controlAction = new ControlAction();
-
-            DataHandler examHandler = new ExamHandler(controlAction);
-            examHandler.createEventList();
-
-
-
-            DataHandler testHandler = new TestHandler(controlAction);
-            testHandler.createEventList();
-            testHandler.printEvents();
-
-
-
-
-
-
-            List<String> requiredStringList = getPartOfEvent(controlAction, "Required");
-
-            // read requirements
-            this.controlAction.setRequiredNumberPoints(parseValue(requiredStringList.get(0), "examPoints"));
-            this.controlAction.setRequiredNumberTests((int) parseValue(requiredStringList.get(0), "passedTests"));
-
-//            // count passed tests and score points
-//            this.controlAction.setCurrentNumberPoints(countNumberOfPoints());
-//            this.controlAction.setCurrentNumberTests(countPassedTests());
-
-            // check whether the control action has passed
-            boolean passedAllExam = this.controlAction.getCurrentNumberPoints() >= this.controlAction.getRequiredNumberPoints();
-            boolean passedAllTests = this.controlAction.getCurrentNumberTests() >= this.controlAction.getRequiredNumberTests();
-            this.controlAction.setEventPassed(passedAllExam && passedAllTests);
-
-            controlActionList.add(this.controlAction);
-        }
-    }
-
 //    private float countNumberOfPoints() {
 //        int numberPoints = 0;
 ////        for (Map<String, Float> exam : controlAction.getExamList()) {
@@ -95,7 +99,7 @@ class ProcessingData {
 //        return numberTests;
 //    }
 
-    private List<String> getPartOfEvent(String str, String substr) {
+    private List<String> getPartOfControlAction(String str, String substr) {
         List<String> list = new ArrayList<>();
         Pattern p = Pattern.compile(substr + "\\{(.*?)}");
         Matcher m = p.matcher(str);
@@ -103,27 +107,5 @@ class ProcessingData {
             list.add(m.group(1));
         }
         return list;
-    }
-
-    private float parseValue(String str, String substr) {
-        String result = "";
-        Pattern p = Pattern.compile(substr + "\\s?=\\s?(\\d+\\.?\\d?)");
-        Matcher m = p.matcher(str);
-        if (m.find()) {
-            result = m.group(1);
-        } else {
-            System.out.println("Error: incorrect input.");
-            System.exit(0);
-        }
-        return Float.parseFloat(result);
-    }
-
-    private Set<String> createExamSet() {
-        Set<String> set = new HashSet<>();
-        set.add("minValue");
-        set.add("maxValue");
-        set.add("stepValue");
-        set.add("currentValue");
-        return set;
     }
 }
