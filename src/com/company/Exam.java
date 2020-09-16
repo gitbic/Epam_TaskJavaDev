@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Map;
 
-class Exam extends Examination {
+class Exam {
 
     private int examNumber;
     private Map<String, Float> examMap;

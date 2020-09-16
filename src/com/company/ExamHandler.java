@@ -1,12 +1,19 @@
 package com.company;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 class ExamHandler extends DataHandler<Exam> {
 
+    private String eventKeyword = "Exam";
     private Set<String> examSet = createExamSet();
+
+
+    ExamHandler(String controlActionString) {
+        super(controlActionString);
+        super.setKeywordFind(this.eventKeyword);
+        super.createEventStringList();
+    }
+
 
     private Set<String> createExamSet() {
         return Set.of("minValue",
@@ -16,15 +23,19 @@ class ExamHandler extends DataHandler<Exam> {
     }
 
     @Override
-    Exam getEventFromString(int i, String eventString) {
-        Exam exam = new Exam();
-        exam.setExamNumber(i);
+    void createEventList() {
+        int i = 1;
+        for (String eventString : createEventStringList()) {
+            Exam exam = new Exam();
+            exam.setExamNumber(i);
 
-        Map<String, Float> examMap = new HashMap<>();
-        for (String key : examSet) {
-            examMap.put(key, parseValue(eventString, key));
+            Map<String, Float> examMap = new HashMap<>();
+            for (String key : examSet) {
+                examMap.put(key, parseValue(eventString, key));
+            }
+            exam.setExamMap(examMap);
+            addEventToList(exam);
+            i++;
         }
-        exam.setExamMap(examMap);
-        return exam;
     }
 }

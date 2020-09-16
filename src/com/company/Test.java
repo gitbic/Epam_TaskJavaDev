@@ -1,6 +1,6 @@
 package com.company;
 
-class Test extends Examination {
+class Test {
 
     private int testNumber;
     private boolean testPassed;

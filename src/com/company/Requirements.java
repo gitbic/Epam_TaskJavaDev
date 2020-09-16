@@ -2,29 +2,29 @@ package com.company;
 
 class Requirements {
 
-    private float examPoints;
-    private int passedTests;
+    private float numberPoints;
+    private int numberTests;
 
-    float getExamPoints() {
-        return examPoints;
+    float getNumberPoints() {
+        return numberPoints;
     }
 
-    void setExamPoints(float examPoints) {
-        this.examPoints = examPoints;
+    void setNumberPoints(float numberPoints) {
+        this.numberPoints = numberPoints;
     }
 
-    int getPassedTests() {
-        return passedTests;
+    int getNumberTests() {
+        return numberTests;
     }
 
-    void setPassedTests(int passedTests) {
-        this.passedTests = passedTests;
+    void setNumberTests(int numberTests) {
+        this.numberTests = numberTests;
     }
 
     @Override
     public String toString() {
-        return "Требования для прохождения контрольного испытания\n" +
-                "\tНеобходимо набрать всего баллов:  " + examPoints + "\n" +
-                "\tНеобходимо сдать всего зачетов: " + passedTests + "\n";
+        return "Требования для прохождения контрольного испытания:\n" +
+                "\tНеобходимо набрать всего баллов:  " + numberPoints + "\n" +
+                "\tНеобходимо сдать всего зачетов: " + numberTests + "\n";
     }
 }

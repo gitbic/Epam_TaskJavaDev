@@ -1,12 +1,23 @@
 package com.company;
 
+import java.util.List;
+
 class RequirementsHandler extends DataHandler<Requirements> {
 
+    private String eventKeyword = "Required";
+
+    RequirementsHandler(String controlActionString) {
+        super(controlActionString);
+        super.setKeywordFind(this.eventKeyword);
+        super.createEventStringList();
+    }
+
     @Override
-    Requirements getEventFromString(int i, String eventString) {
+    void createEventList() {
         Requirements requirements = new Requirements();
-        requirements.setExamPoints(parseValue(eventString, "examPoints"));
-        requirements.setPassedTests((int) parseValue(eventString, "passedTests"));
-        return requirements;
+        List<String> list = createEventStringList();
+        requirements.setNumberPoints(parseValue(list.get(0), "examPoints"));
+        requirements.setNumberTests((int) parseValue(list.get(0), "passedTests"));
+        addEventToList(requirements);
     }
 }

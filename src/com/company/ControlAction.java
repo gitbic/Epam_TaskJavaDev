@@ -2,36 +2,61 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 class ControlAction {
+    private int controlActionNumber;
 
     private List<Exam> examList = new ArrayList<>();
     private List<Test> testList = new ArrayList<>();
     private Requirements requirements;
 
-    public Requirements getRequirements() {
-        return requirements;
-    }
-
-    public void setRequirements(Requirements requirements) {
-        this.requirements = requirements;
-    }
-
     private float currentNumberPoints;
     private int currentNumberTests;
 
-    private float requiredNumberPoints;
-    private int requiredNumberTests;
-
-    private boolean eventPassed;
-
-    boolean isEventPassed() {
-        return eventPassed;
+    int getControlActionNumber() {
+        return controlActionNumber;
     }
 
-    void setEventPassed(boolean eventPassed) {
-        this.eventPassed = eventPassed;
+    void setControlActionNumber(int controlActionNumber) {
+        this.controlActionNumber = controlActionNumber;
+    }
+
+    private boolean controlActionPassed;
+
+    void setControlActionPassed(boolean controlActionPassed) {
+        this.controlActionPassed = controlActionPassed;
+    }
+
+    boolean isControlActionPassed() {
+        return controlActionPassed;
+    }
+
+    Requirements getRequirements() {
+        return requirements;
+    }
+
+    void setExamList(List<Exam> examList) {
+        this.examList = examList;
+    }
+
+    void setTestList(List<Test> testList) {
+        this.testList = testList;
+    }
+
+    List<Exam> getExamList() {
+        return examList;
+    }
+
+    List<Test> getTestList() {
+        return testList;
+    }
+
+    void setRequirements(Requirements requirements) {
+        this.requirements = requirements;
+    }
+
+    boolean isEventPassed() {
+        return controlActionPassed;
     }
 
     float getCurrentNumberPoints() {
@@ -50,87 +75,28 @@ class ControlAction {
         this.currentNumberTests = currentNumberTests;
     }
 
-    float getRequiredNumberPoints() {
-        return requiredNumberPoints;
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Контрольное мероприятие №").append(controlActionNumber)
+                .append("\nВ состав контрольного мероприятия входят:")
+                .append("\n\tКоличество зачетов: ").append(testList.size())
+                .append("\n\tКоличество экзаменов: ").append(examList.size())
+                .append(System.lineSeparator());
+
+        examList.forEach(sb::append);
+        testList.forEach(sb::append);
+        sb.append(requirements);
+
+        sb.append("\nТекущие результаты кандидата:")
+                .append("\n\tКоличество баллов набрано: ").append(currentNumberPoints)
+                .append("\n\tКоличество зачетов сдано: ").append(currentNumberTests);
+
+        sb.append("\nВывод: контрольное мероприятие ")
+                .append(controlActionPassed ? "ПРОЙДЕНО." : "НЕ ПРОЙДЕНО.")
+                .append(System.lineSeparator());
+
+        return sb.toString();
     }
 
-    void setRequiredNumberPoints(float requiredNumberPoints) {
-        this.requiredNumberPoints = requiredNumberPoints;
-    }
-
-    int getRequiredNumberTests() {
-        return requiredNumberTests;
-    }
-
-    void setRequiredNumberTests(int requiredNumberTests) {
-        this.requiredNumberTests = requiredNumberTests;
-    }
-
-    void addExamToList(Exam exam) {
-        examList.add(exam);
-    }
-
-    void addTestToList(Test test) {
-        testList.add(test);
-    }
-
-//    void addExamToList(Map<String, Float> map) {
-//        examList.add(map);
-//    }
-//
-//    void addTestToList(boolean bool) {
-//        testList.add(bool);
-//    }
-//
-//    List<Map<String, Float>> getExamList() {
-//        return examList;
-//    }
-//
-//    List<Boolean> getTestList() {
-//        return testList;
-//    }
-
-
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("В состав контрольного мероприятия входят: \n" +
-//                "\tКоличество зачетов: " + testList.size() + "\n" +
-//                "\tКоличество экзаменов: " + examList.size() + "\n");
-//
-//
-//        for (Map<String, Float> examMap : examList) {
-//            sb.append("Экзамен № " + (examList.indexOf(examMap) + 1) + "\n" +
-//                    "\tМинимальный балл: " + examMap.get("minValue") + "\n" +
-//                    "\tМаксимальный балл: " + examMap.get("maxValue") + "\n" +
-//                    "\tШаг балла: " + examMap.get("stepValue") + "\n" +
-//                    "\tКандидат набрал баллов: " + examMap.get("currentValue") + "\n");
-//        }
-//
-//        for (int i = 0; i < testList.size(); i++) {
-//            sb.append("Зачет № " + (i + 1) + "\n" +
-//                    "\tКандидат сдал зачет: " + (testList.get(i) ? "да" : "нет") + "\n");
-//        }
-//
-//        sb.append("Требования для прохождения контрольного испытания:\n");
-//        if (examList.size() > 0) {
-//            sb.append("\tНеобходимо набрать баллов в совокупности за все экзамены: " + requiredNumberPoints + "\n");
-//        }
-//        if (testList.size() > 0) {
-//            sb.append("\tНеобходимо сдать всего зачетов: " + requiredNumberTests + "\n");
-//        }
-//
-//        sb.append("Текущие результаты кандидата:\n");
-//        if (examList.size() > 0) {
-//            sb.append("\tКоличество баллов набрано: " + currentNumberPoints + "\n");
-//        }
-//        if (testList.size() > 0) {
-//            sb.append("\tКоличество зачетов сдано: " + requiredNumberTests + "\n");
-//        }
-//
-//        sb.append("Вывод: контрольное мероприятие ")
-//                .append(eventPassed ? "ПРОЙДЕНО." : "НЕ ПРОЙДЕНО.");
-//
-//        return sb.toString();
-//    }
 }
