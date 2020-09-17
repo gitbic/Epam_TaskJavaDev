@@ -45,7 +45,7 @@ class ProcessingControlAction {
     void reorderCollection() {
         Deque<ControlAction> controlActionDeque = new ArrayDeque<>();
         for (ControlAction controlAction : controlActionList) {
-            if (controlAction.isEventPassed()) {
+            if (controlAction.isControlActionPassed()) {
                 controlActionDeque.offerFirst(controlAction);
             } else {
                 controlActionDeque.offerLast(controlAction);

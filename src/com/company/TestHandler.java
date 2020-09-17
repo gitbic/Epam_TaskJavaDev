@@ -7,7 +7,6 @@ class TestHandler extends DataHandler<Test> {
     TestHandler(String controlActionString) {
         super(controlActionString);
         super.setKeywordFind(this.eventKeyword);
-        super.createEventStringList();
     }
 
     @Override

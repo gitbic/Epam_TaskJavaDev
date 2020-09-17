@@ -5,10 +5,6 @@ class Test {
     private int testNumber;
     private boolean testPassed;
 
-    int getTestNumber() {
-        return testNumber;
-    }
-
     void setTestNumber(int testNumber) {
         this.testNumber = testNumber;
     }

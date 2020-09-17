@@ -13,10 +13,6 @@ class ControlAction {
     private float currentNumberPoints;
     private int currentNumberTests;
 
-    int getControlActionNumber() {
-        return controlActionNumber;
-    }
-
     void setControlActionNumber(int controlActionNumber) {
         this.controlActionNumber = controlActionNumber;
     }
@@ -55,10 +51,6 @@ class ControlAction {
         this.requirements = requirements;
     }
 
-    boolean isEventPassed() {
-        return controlActionPassed;
-    }
-
     float getCurrentNumberPoints() {
         return currentNumberPoints;
     }
@@ -88,7 +80,7 @@ class ControlAction {
         testList.forEach(sb::append);
         sb.append(requirements);
 
-        sb.append("\nТекущие результаты кандидата:")
+        sb.append("Текущие результаты кандидата:")
                 .append("\n\tКоличество баллов набрано: ").append(currentNumberPoints)
                 .append("\n\tКоличество зачетов сдано: ").append(currentNumberTests);
 
@@ -98,5 +90,4 @@ class ControlAction {
 
         return sb.toString();
     }
-
 }

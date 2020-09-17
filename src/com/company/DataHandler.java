@@ -15,7 +15,7 @@ abstract class DataHandler<T> {
         this.controlActionString = controlActionString;
     }
 
-    void printEvents() {
+    void printEventList() {
         eventList.forEach(System.out::println);
     }
 

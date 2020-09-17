@@ -7,10 +7,6 @@ class Exam {
     private int examNumber;
     private Map<String, Float> examMap;
 
-    float getExamNumber() {
-        return examNumber;
-    }
-
     void setExamNumber(int examNumber) {
         this.examNumber = examNumber;
     }

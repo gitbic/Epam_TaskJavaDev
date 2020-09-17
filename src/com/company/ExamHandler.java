@@ -11,9 +11,7 @@ class ExamHandler extends DataHandler<Exam> {
     ExamHandler(String controlActionString) {
         super(controlActionString);
         super.setKeywordFind(this.eventKeyword);
-        super.createEventStringList();
     }
-
 
     private Set<String> createExamSet() {
         return Set.of("minValue",
