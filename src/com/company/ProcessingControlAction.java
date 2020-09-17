@@ -26,13 +26,15 @@ class ProcessingControlAction {
             controlAction.setTestList(testHandler.getEventList());
 
             // collect requirements
-            DataHandler<Requirements> requirementsHandler = new RequirementsHandler(controlActionString);
+            DataHandler<RequiredResult> requirementsHandler = new RequirementsHandler(controlActionString);
             requirementsHandler.createEventList();
-            controlAction.setRequirements(requirementsHandler.getEventList().get(0));
+            controlAction.setRequiredResult(requirementsHandler.getEventList().get(0));
 
             // count passed tests and score points
-            controlAction.setCurrentNumberTests(countPassedTests());
-            controlAction.setCurrentNumberPoints(countNumberPoints());
+            ResultExamination currentResult = new CurrentResult();
+            currentResult.setNumberPoints(countNumberPoints());
+            currentResult.setNumberTests(countPassedTests());
+            controlAction.setCurrentResult(currentResult);
 
             // check whether the control action has passed
             controlAction.setControlActionPassed(checkIsControlActionPassed());
@@ -79,9 +81,10 @@ class ProcessingControlAction {
     }
 
     private boolean checkIsControlActionPassed() {
-        Requirements requirements = controlAction.getRequirements();
-        boolean passedAllExam = controlAction.getCurrentNumberPoints() >= requirements.getNumberPoints();
-        boolean passedAllTests = controlAction.getCurrentNumberTests() >= requirements.getNumberTests();
+        ResultExamination requiredResult = controlAction.getRequiredResult();
+        ResultExamination currentResult = controlAction.getCurrentResult();
+        boolean passedAllExam = currentResult.getNumberPoints() >= requiredResult.getNumberPoints();
+        boolean passedAllTests = currentResult.getNumberTests() >= requiredResult.getNumberTests();
         return passedAllExam && passedAllTests;
     }
 }

@@ -19,7 +19,7 @@ class Test {
 
     @Override
     public String toString() {
-        return "Зачет №" + testNumber + "\n" +
-                "\tКандидат сдал зачет: " + (testPassed ? "да" : "нет") + "\n";
+        return "\nЗачет №" + testNumber +
+                "\n\tКандидат сдал зачет: " + (testPassed ? "да" : "нет");
     }
 }

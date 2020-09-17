@@ -8,16 +8,29 @@ class ControlAction {
 
     private List<Exam> examList = new ArrayList<>();
     private List<Test> testList = new ArrayList<>();
-    private Requirements requirements;
+    private ResultExamination requiredResult;
+    private ResultExamination currentResult;
+    private boolean controlActionPassed;
 
-    private float currentNumberPoints;
-    private int currentNumberTests;
+    void setCurrentResult(ResultExamination currentResult) {
+        this.currentResult = currentResult;
+    }
+
+    ResultExamination getCurrentResult() {
+        return currentResult;
+    }
+
+    void setRequiredResult(ResultExamination requiredResult) {
+        this.requiredResult = requiredResult;
+    }
+
+    ResultExamination getRequiredResult() {
+        return requiredResult;
+    }
 
     void setControlActionNumber(int controlActionNumber) {
         this.controlActionNumber = controlActionNumber;
     }
-
-    private boolean controlActionPassed;
 
     void setControlActionPassed(boolean controlActionPassed) {
         this.controlActionPassed = controlActionPassed;
@@ -25,10 +38,6 @@ class ControlAction {
 
     boolean isControlActionPassed() {
         return controlActionPassed;
-    }
-
-    Requirements getRequirements() {
-        return requirements;
     }
 
     void setExamList(List<Exam> examList) {
@@ -47,42 +56,18 @@ class ControlAction {
         return testList;
     }
 
-    void setRequirements(Requirements requirements) {
-        this.requirements = requirements;
-    }
-
-    float getCurrentNumberPoints() {
-        return currentNumberPoints;
-    }
-
-    void setCurrentNumberPoints(float currentNumberPoints) {
-        this.currentNumberPoints = currentNumberPoints;
-    }
-
-    int getCurrentNumberTests() {
-        return currentNumberTests;
-    }
-
-    void setCurrentNumberTests(int currentNumberTests) {
-        this.currentNumberTests = currentNumberTests;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Контрольное мероприятие №").append(controlActionNumber)
                 .append("\nВ состав контрольного мероприятия входят:")
                 .append("\n\tКоличество зачетов: ").append(testList.size())
-                .append("\n\tКоличество экзаменов: ").append(examList.size())
-                .append(System.lineSeparator());
+                .append("\n\tКоличество экзаменов: ").append(examList.size());
 
         examList.forEach(sb::append);
         testList.forEach(sb::append);
-        sb.append(requirements);
-
-        sb.append("Текущие результаты кандидата:")
-                .append("\n\tКоличество баллов набрано: ").append(currentNumberPoints)
-                .append("\n\tКоличество зачетов сдано: ").append(currentNumberTests);
+        sb.append(requiredResult);
+        sb.append(currentResult);
 
         sb.append("\nВывод: контрольное мероприятие ")
                 .append(controlActionPassed ? "ПРОЙДЕНО." : "НЕ ПРОЙДЕНО.")

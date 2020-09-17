@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.List;
 
-class RequirementsHandler extends DataHandler<Requirements> {
+class RequirementsHandler extends DataHandler<RequiredResult> {
 
     private String eventKeyword = "Required";
 
@@ -13,10 +13,10 @@ class RequirementsHandler extends DataHandler<Requirements> {
 
     @Override
     void createEventList() {
-        Requirements requirements = new Requirements();
+        RequiredResult requiredResult = new RequiredResult();
         List<String> eventList = createEventStringList();
-        requirements.setNumberPoints(parseValue(eventList.get(0), "examPoints"));
-        requirements.setNumberTests((int) parseValue(eventList.get(0), "passedTests"));
-        addEventToList(requirements);
+        requiredResult.setNumberPoints(parseValue(eventList.get(0), "examPoints"));
+        requiredResult.setNumberTests((int) parseValue(eventList.get(0), "passedTests"));
+        addEventToList(requiredResult);
     }
 }

@@ -21,10 +21,10 @@ class Exam {
 
     @Override
     public String toString() {
-        return "Экзамен №" + examNumber + "\n" +
-                "\tМинимальный балл: " + examMap.get("minValue") + "\n" +
-                "\tМаксимальный балл: " + examMap.get("maxValue") + "\n" +
-                "\tШаг балла: " + examMap.get("stepValue") + "\n" +
-                "\tКандидат набрал баллов: " + examMap.get("currentValue") + "\n";
+        return "\nЭкзамен №" + examNumber +
+                "\n\tМинимальный балл: " + examMap.get("minValue") +
+                "\n\tМаксимальный балл: " + examMap.get("maxValue") +
+                "\n\tШаг балла: " + examMap.get("stepValue") +
+                "\n\tКандидат набрал баллов: " + examMap.get("currentValue");
     }
 }
